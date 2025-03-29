@@ -16,7 +16,7 @@ class ListingPageSpider
      * @throws GuzzleException
      * @throws SpiderScrapeException
      */
-    public function scrape()
+    public function scrape(): string
     {
         $response = ScrapingBytes::scrape(
             $this->startUrl,

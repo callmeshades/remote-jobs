@@ -35,4 +35,8 @@ return [
         ],
     ],
 
+    'scrapingbytes' => [
+        'key' => env('SCRAPINGBYTES_API_KEY'),
+    ]
+
 ];

@@ -32,6 +32,9 @@ class ListingPageSpider
             ]
         );
 
+        /**
+         * Check scraping was successful
+         */
         if ($response['status_code'] !== 200) {
             throw new SpiderScrapeException(sprintf("Failed to scrape Jobspresso - Status %d", $response['status_code']));
         }

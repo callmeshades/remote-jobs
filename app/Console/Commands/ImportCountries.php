@@ -25,6 +25,7 @@ class ImportCountries extends Command
     /**
      * Execute the console command.
      * Import all countries from the provided remote JSON file.
+     * The JSON file can be found at: https://github.com/dr5hn/countries-states-cities-database
      */
     public function handle()
     {

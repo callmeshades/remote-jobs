@@ -50,30 +50,38 @@ class ScrapingBytes
          */
         try {
             $response = $this->client->post('scrape', [
-                'url' => $url,
-                'render_js' => $renderJs,
-                'premium_proxy' => $premiumProxy,
-                'screenshot' => $screenshot,
-                'mobile' => $mobile,
-                'block_resources' => $blockResources,
-                'block_ads' => $blockAds,
-                'window_height' => $windowHeight,
-                'window_width' => $windowWidth,
-                'timeout' => $timeout,
-                'instructions' => $instructions
+                'json' => [
+                    'url' => $url,
+                    'render_js' => $renderJs,
+                    'premium_proxy' => $premiumProxy,
+                    'screenshot' => $screenshot,
+                    'mobile' => $mobile,
+                    'block_resources' => $blockResources,
+                    'block_ads' => $blockAds,
+                    'window_height' => $windowHeight,
+                    'window_width' => $windowWidth,
+                    'timeout' => $timeout,
+                    'instructions' => $instructions
+                ]
             ]);
+
+            /**
+             * Get the response headers
+             */
+            $headers = $response->getHeaders();
+            $success = $headers['SB-Success'] ?? null;
+            $creditCost = $headers['SB-Credit-Cost'] ?? null;
 
             /**
              * Get the status code, headers, and return the response.
              * This assumes a successful response
              */
             $responseBody = $response->getBody()->getContents();
-            $headers = $response->getHeaders();
             return [
                 'status_code' => $response->getStatusCode(),
                 'headers' => [
-                    'success' => $headers['SB-Success'] ?? null,
-                    'credit_cost' => $headers['SB-Credit-Cost'] ?? null,
+                    'success' => $success ? (bool)$success[0] : null,
+                    'credit_cost' => $creditCost ? (int)$creditCost[0] : null,
                 ],
                 'response' => $responseBody,
             ];
@@ -86,13 +94,20 @@ class ScrapingBytes
             $jsonResponse = json_decode($responseBody, true);
 
             /**
+             * Get the response headers
+             */
+            $headers = $response->getHeaders();
+            $success = $headers['SB-Success'] ?? null;
+            $creditCost = $headers['SB-Credit-Cost'] ?? null;
+
+            /**
              * Get the status code, headers, and return the response
              */
             return [
                 'status_code' => $response->getStatusCode(),
                 'headers' => [
-                    'success' => $headers['SB-Success'] ?? null,
-                    'credit_cost' => $headers['SB-Credit-Cost'] ?? null,
+                    'success' => $success ? (bool)$success[0] : null,
+                    'credit_cost' => $creditCost ? (int)$creditCost[0] : null,
                 ],
                 'response' => $jsonResponse
             ];

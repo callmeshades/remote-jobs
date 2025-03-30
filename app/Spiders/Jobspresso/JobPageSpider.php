@@ -10,10 +10,12 @@ use Symfony\Component\DomCrawler\Crawler;
 class JobPageSpider
 {
     /**
+     * @param string $url
+     * @return string
      * @throws GuzzleException
      * @throws SpiderScrapeException
      */
-    public function scrape(string $url)
+    public function scrape(string $url): string
     {
         $response = ScrapingBytes::scrape($url, premiumProxy: true);
 

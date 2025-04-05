@@ -20,10 +20,10 @@ return new class extends Migration
             $table->string('description');
             $table->text('body');
             $table->string('url');
-            $table->string('type')->default('Full Time'); // Job type such as Part Time, Full Time, Contract
+            $table->string('type')->default('Full Time')->nullable(); // Job type such as Part Time, Full Time, Contract
             $table->string('pay_type')->nullable(); // Salary, Hourly
-            $table->integer('minimum_pay');
-            $table->integer('maximum_pay');
+            $table->integer('minimum_pay')->nullable();
+            $table->integer('maximum_pay')->nullable();
             $table->timestamps();
             $table->softDeletes();
         });

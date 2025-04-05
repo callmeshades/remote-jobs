@@ -54,16 +54,16 @@ class JobPageSpider
          */
         $title = $crawler->filterXPath('//h1[@class="page-title"]')->text();
         $location = $crawler->filterXPath('//li[@class="location"]')->text();
-        $description = $crawler->filterXPath('//div[contains(@class, "job_listing-description")]')->html();
+        $description = $crawler->filterXPath('//div[contains(@class, "job_listing-description")]');
         $applicationUrl = $crawler->filterXPath('//a[contains(@class, "application_button_link")]')->attr('href');
-        $category = $crawler->filterXPath('//a[@class="job-category"]')->first()->text();
+        $categories = $crawler->filterXPath('//a[@class="job-category"]');
 
         $job = [
             'title' => $title,
             'location' => $location,
             'description' => $description,
             'application_url' => $applicationUrl,
-            'category' => $category
+            'categories' => $categories
         ];
 
         return [
